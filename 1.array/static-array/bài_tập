@@ -1,0 +1,138 @@
+
+
+
+
+
+
+
+# Code trên minh họa các thao tác cơ bản trên một mảng tĩnh (fixed-size array). Đây là các hàm giúp thêm, xóa phần tử và in nội dung mảng. Hãy cùng giải thích từng phần:
+
+# ---
+
+# ### **1. Hàm `insertEnd(arr, n, length, capacity)`**
+# **Mục đích**: Thêm phần tử `n` vào cuối mảng.
+
+# **Chi tiết**:
+# - `arr`: Mảng tĩnh (đã cấp phát kích thước cố định).
+# - `length`: Số lượng phần tử thực sự hiện có trong mảng.
+# - `capacity`: Số lượng ô nhớ được cấp phát (kích thước tối đa của mảng).
+
+# **Cách hoạt động**:
+# 1. Kiểm tra nếu mảng chưa đầy (`length < capacity`).
+# 2. Nếu đúng, thêm `n` vào vị trí `length` (vị trí tiếp theo trống trong mảng).
+
+def insertEnd(arr, n, length, capacity):
+    if length < capacity:
+        arr[length] = n
+
+# Ví dụ:
+# ```python
+# arr = [1, 2, 3, 0, 0]
+# insertEnd(arr, 4, 3, 5) # 3 là chiều dài thực tế , 5 là khả năng chứa của mảng 
+# # arr = [1, 2, 3, 4, 0]
+# ```
+
+# ---
+
+# ### **2. Hàm `removeEnd(arr, length)`**
+# **Mục đích**: Xóa phần tử ở cuối mảng.
+
+# **Chi tiết**:
+# - Nếu mảng không rỗng (`length > 0`), xóa phần tử cuối bằng cách:
+#   - Gán giá trị cuối (`arr[length-1]`) thành giá trị mặc định (`0` hoặc `None` tùy yêu cầu).
+#   - Giảm chiều dài (nhưng việc giảm này không thể hiện trong code dưới ; bạn cần tự giảm `length` bên ngoài).
+def removeEnd(arr, length):
+    if length > 0:
+        # Overwrite last element with some default value.
+        # We would also the length to decreased by 1.
+        arr[length - 1] = 0
+
+
+# Ví dụ:
+# ```python
+# arr = [1, 2, 3, 4, 0]
+# removeEnd(arr, 4)
+# # arr = [1, 2, 3, 0, 0]
+# ```
+
+# ---
+
+# ### **3. Hàm `insertMiddle(arr, i, n, length)`**
+# **Mục đích**: Chèn giá trị `n` vào vị trí `i` trong mảng, đồng thời dời các phần tử bên phải.
+
+# **Chi tiết**:
+# - Duyệt từ vị trí cuối (`length - 1`) đến vị trí cần chèn (`i`).
+# - Dịch chuyển từng phần tử sang bên phải (tăng chỉ số lên 1).
+# - Sau đó, chèn `n` vào vị trí `i`.
+def insertMiddle(arr, i, n, length):
+    # Shift starting from the end to i.
+    for index in range(length - 1, i - 1, -1):
+        arr[index + 1] = arr[index]
+    
+    # Insert at i
+    arr[i] = n
+# Ví dụ:
+# ```python
+# arr = [1, 2, 4, 0, 0]
+# insertMiddle(arr, 2, 3, 3) 
+# # arr = [1, 2, 3, 4, 0]
+# ```
+
+# ---
+
+# ### **4. Hàm `removeMiddle(arr, i, length)`**
+# **Mục đích**: Xóa giá trị tại vị trí `i` và dời các phần tử bên phải sang trái.
+
+# **Chi tiết**:
+# - Duyệt từ vị trí `i + 1` đến cuối mảng.
+# - Dời mỗi phần tử sang trái (giảm chỉ số đi 1).
+# - Sau khi dịch chuyển, phần tử cuối cùng sẽ trở nên dư thừa nhưng không cần "xóa" (đơn giản chỉ bị ghi đè khi thêm phần tử khác).
+
+def removeMiddle(arr, i, length):
+    # Shift starting from i + 1 to end.
+    for index in range(i + 1, length):
+        arr[index - 1] = arr[index]
+    # No need to 'remove' arr[i], since we already shifted
+# Ví dụ:
+# ```python
+# arr = [1, 2, 3, 4, 0]
+# removeMiddle(arr, 2, 4)
+# # arr = [1, 2, 4, 0, 0]
+# ```
+
+# ---
+
+# ### **5. Hàm `printArr(arr, capacity)`**
+# **Mục đích**: In tất cả các phần tử trong mảng.
+
+# **Chi tiết**:
+# - Lặp qua toàn bộ mảng (từ `0` đến `capacity`) và in từng phần tử.
+
+def printArr(arr, capacity):
+    for i in range(capacity):
+        print(arr[i])
+# Ví dụ:
+# ```python
+# arr = [1, 2, 3, 0, 0]
+# printArr(arr, 5)
+# # Output:
+# # 1
+# # 2
+# # 3
+# # 0
+# # 0
+# ```
+
+# ---
+
+# ### **Một số lưu ý quan trọng**:
+# 1. **Quản lý `length`**:
+#    - Hàm `removeEnd`, `insertEnd`, `insertMiddle`, và `removeMiddle` không thực sự thay đổi `length` trong mảng. Người sử dụng hàm phải tự giảm/tăng `length` sau mỗi thao tác.
+
+# 2. **Kiểm tra giới hạn**:
+#    - Trong các bài toán thực tế, cần kiểm tra xem `i` có hợp lệ hay không (ví dụ: `0 <= i < length`).
+
+# 3. **Hiệu suất**:
+#    - Các thao tác như `insertMiddle` và `removeMiddle` có độ phức tạp **O(n)** do cần dời nhiều phần tử.
+
+# Nếu bạn cần làm việc với mảng lớn hoặc hiệu suất cao hơn, bạn có thể sử dụng các cấu trúc dữ liệu khác như danh sách liên kết hoặc thư viện `list` của Python (dynamic array).
