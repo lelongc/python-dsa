@@ -1,0 +1,53 @@
+--------https://leetcode.com/problems/concatenation-of-array/
+
+
+
+Để giải quyết bài toán **"Concatenation of Array"**, chúng ta cần tạo một mảng `ans` có độ dài gấp đôi mảng `nums`. Mảng `ans` sẽ bao gồm hai bản sao của mảng `nums`, một lần theo thứ tự ban đầu và một lần nữa.
+
+### **Phân tích**
+- Mảng `nums` có độ dài `n`.
+- Chúng ta cần tạo một mảng `ans` có độ dài `2n`.
+- Các phần tử trong `ans` sẽ được lấy từ `nums` sao cho:
+  - Các phần tử từ `0` đến `n-1` trong `ans` là các phần tử của `nums`.
+  - Các phần tử từ `n` đến `2n-1` trong `ans` sẽ giống với các phần tử từ `0` đến `n-1` của `nums`.
+
+### **Cách tiếp cận**
+1. Mảng `ans` sẽ được tạo ra bằng cách nối mảng `nums` với chính nó.
+2. Để thực hiện điều này, chúng ta có thể sử dụng một phép toán nối mảng trong Python.
+
+### **Giải thuật**
+```python
+def getConcatenation(nums):
+    return nums + nums  # Nối mảng nums với chính nó
+```
+
+### **Giải thích**
+- Phương thức `nums + nums` trong Python sẽ nối mảng `nums` với chính nó và tạo ra một mảng mới với các phần tử của `nums` lặp lại hai lần.
+- Đây là cách nhanh chóng và đơn giản để tạo mảng `ans` mà không cần phải dùng vòng lặp.
+
+### **Ví dụ**
+
+#### **Ví dụ 1**
+```python
+nums = [1, 2, 1]
+print(getConcatenation(nums))  # Output: [1, 2, 1, 1, 2, 1]
+```
+**Giải thích:**
+- Mảng `nums` là `[1, 2, 1]`.
+- Nối mảng với chính nó, ta được `[1, 2, 1, 1, 2, 1]`.
+
+#### **Ví dụ 2**
+```python
+nums = [1, 3, 2, 1]
+print(getConcatenation(nums))  # Output: [1, 3, 2, 1, 1, 3, 2, 1]
+```
+**Giải thích:**
+- Mảng `nums` là `[1, 3, 2, 1]`.
+- Nối mảng với chính nó, ta được `[1, 3, 2, 1, 1, 3, 2, 1]`.
+
+### **Độ phức tạp**
+- **Thời gian:** `O(n)`, với `n` là độ dài của mảng `nums`. Việc nối hai mảng có độ dài `n` mất thời gian tuyến tính.
+- **Không gian:** `O(n)` vì chúng ta tạo ra một mảng mới có độ dài `2n`.
+
+---
+

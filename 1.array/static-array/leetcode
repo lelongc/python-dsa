@@ -1,0 +1,264 @@
+SUGGESTED PROBLEMS
+#giải
+# ----------------https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+
+Để giải bài toán này, chúng ta cần thực hiện việc loại bỏ các phần tử trùng lặp trong mảng **`nums`** đã được sắp xếp tăng dần và trả về số lượng phần tử duy nhất trong mảng. Sau đây là cách tiếp cận chi tiết:
+
+---
+
+### **Phân tích**
+
+1. Mảng đã được sắp xếp, do đó tất cả các phần tử trùng lặp sẽ nằm cạnh nhau.
+2. Chúng ta cần giữ lại các phần tử duy nhất trong phần đầu của mảng và trả về số lượng phần tử duy nhất.
+
+### **Cách tiếp cận**
+
+Sử dụng hai con trỏ:
+
+- **`i`**: Vị trí sẽ chứa phần tử duy nhất tiếp theo.
+- **`j`**: Duyệt qua từng phần tử trong mảng.
+
+**Quy trình:**
+
+1. Ban đầu, gán `i = 0` (điểm bắt đầu của mảng duy nhất).
+2. Duyệt qua mảng với con trỏ `j` từ `1` đến `n-1`:
+   - Nếu phần tử tại vị trí `j` khác phần tử tại vị trí `i`, tăng `i` và cập nhật phần tử tại `i` bằng phần tử tại `j`.
+3. Sau khi hoàn tất, số phần tử duy nhất sẽ là `i + 1`.
+
+---
+
+### **Giải thuật**
+
+```python
+def removeDuplicates(nums):
+    if not nums:
+        return 0
+
+    # Con trỏ `i` đại diện cho vị trí của phần tử duy nhất cuối cùng
+    i = 0
+    for j in range(1, len(nums)):
+        if nums[j] != nums[i]:  # Phần tử tại `j` khác phần tử tại `i`
+            i += 1             # Di chuyển con trỏ `i`
+            nums[i] = nums[j]  # Cập nhật phần tử tại vị trí `i`
+
+    return i + 1  # Số phần tử duy nhất
+```
+
+---
+
+### **Ví dụ**
+
+#### **Ví dụ 1**
+
+```python
+nums = [1, 1, 2]
+k = removeDuplicates(nums)
+print(k)  # Output: 2
+print(nums[:k])  # Output: [1, 2]
+```
+
+**Quy trình:**
+
+1. `i = 0, j = 1`: `nums[1] == nums[0]` (bỏ qua).
+2. `i = 0, j = 2`: `nums[2] != nums[0]` → `i = 1`, `nums[1] = nums[2]`.
+   - Mảng sau khi cập nhật: `[1, 2, 2]`.
+
+Kết quả: `k = 2`, `nums[:2] = [1, 2]`.
+
+---
+
+#### **Ví dụ 2**
+
+```python
+nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]
+k = removeDuplicates(nums)
+print(k)  # Output: 5
+print(nums[:k])  # Output: [0, 1, 2, 3, 4]
+```
+
+**Quy trình:**
+
+1. `i = 0, j = 1`: `nums[1] == nums[0]` (bỏ qua).
+2. `i = 0, j = 2`: `nums[2] != nums[0]` → `i = 1`, `nums[1] = nums[2]`.
+3. Tiếp tục, cập nhật các vị trí với các giá trị duy nhất: `[0, 1, 2, 3, 4, ...]`.
+
+Kết quả: `k = 5`, `nums[:5] = [0, 1, 2, 3, 4]`.
+
+---
+
+### **Độ phức tạp**
+
+- **Thời gian:** `O(n)` với `n` là độ dài của mảng.
+  - Duyệt qua toàn bộ mảng một lần.
+- **Không gian:** `O(1)` (xử lý trên mảng gốc, không cần dùng mảng phụ).
+
+# -----------------------https://leetcode.com/problems/remove-element/
+
+Để giải quyết bài toán **"Remove Element"**, ta cần loại bỏ tất cả các phần tử có giá trị bằng `val` trong mảng `nums` và trả về số lượng phần tử không bằng `val`. Mảng có thể thay đổi thứ tự các phần tử sau khi loại bỏ, và chỉ cần trả về số lượng phần tử còn lại sau khi loại bỏ.
+
+---
+
+### **Phân tích**
+
+1. Ta cần loại bỏ tất cả các phần tử có giá trị bằng `val` trong mảng `nums`.
+2. Không cần giữ thứ tự của các phần tử còn lại, nhưng phải đảm bảo rằng các phần tử không phải `val` sẽ được chứa trong phần đầu của mảng.
+3. Trả về số lượng phần tử không phải `val` trong mảng.
+
+### **Cách tiếp cận**
+
+Sử dụng hai con trỏ:
+
+- **`i`**: Để chỉ đến vị trí lưu phần tử không phải `val`.
+- **`j`**: Để duyệt qua từng phần tử trong mảng.
+
+**Quy trình:**
+
+1. Khởi tạo con trỏ `i` bằng 0.
+2. Duyệt qua mảng với con trỏ `j` từ 0 đến `n-1`.
+   - Nếu `nums[j] != val`, ta gán `nums[i] = nums[j]` và tăng `i`.
+3. Kết thúc, số lượng phần tử không phải `val` chính là giá trị của `i`.
+
+---
+
+### **Giải thuật**
+
+```python
+def removeElement(nums, val):
+    i = 0  # Con trỏ `i` để lưu trữ các phần tử không phải `val`
+
+    for j in range(len(nums)):
+        if nums[j] != val:
+            nums[i] = nums[j]  # Đưa phần tử không phải `val` vào vị trí `i`
+            i += 1  # Tăng `i` để lưu phần tử tiếp theo
+
+    return i  # Trả về số lượng phần tử không bằng `val`
+```
+
+---
+
+### **Ví dụ**
+
+#### **Ví dụ 1**
+
+```python
+nums = [3, 2, 2, 3]
+val = 3
+k = removeElement(nums, val)
+print(k)  # Output: 2
+print(nums[:k])  # Output: [2, 2]
+```
+
+**Quy trình:**
+
+1. `i = 0, j = 0`: `nums[0] == 3` (bỏ qua).
+2. `i = 0, j = 1`: `nums[1] != 3` → `nums[0] = nums[1]`, `i = 1`.
+3. `i = 1, j = 2`: `nums[2] != 3` → `nums[1] = nums[2]`, `i = 2`.
+4. Kết quả: Mảng `nums` là `[2, 2, _, _]` và `k = 2`.
+
+#### **Ví dụ 2**
+
+```python
+nums = [0, 1, 2, 2, 3, 0, 4, 2]
+val = 2
+k = removeElement(nums, val)
+print(k)  # Output: 5
+print(nums[:k])  # Output: [0, 1, 3, 0, 4] (hoặc một thứ tự khác)
+```
+
+**Quy trình:**
+
+1. `i = 0, j = 0`: `nums[0] != 2` → `nums[0] = nums[0]`, `i = 1`.
+2. `i = 1, j = 1`: `nums[1] != 2` → `nums[1] = nums[1]`, `i = 2`.
+3. `i = 2, j = 4`: `nums[4] != 2` → `nums[2] = nums[4]`, `i = 3`.
+4. Tiếp tục như vậy cho các phần tử còn lại, ta thu được kết quả là `[0, 1, 3, 0, 4, _, _, _]` và `k = 5`.
+
+---
+
+### **Độ phức tạp**
+
+- **Thời gian:** `O(n)` với `n` là độ dài của mảng `nums`.
+  - Chúng ta chỉ duyệt qua mảng một lần.
+- **Không gian:** `O(1)` vì chúng ta thực hiện thay đổi mảng trực tiếp mà không sử dụng bộ nhớ phụ.
+
+---
+
+# -------------------https://leetcode.com/problems/shuffle-the-array/
+
+Bài toán này yêu cầu ta chia một mảng `nums` gồm `2n` phần tử, theo dạng `[x1, x2, ..., xn, y1, y2, ..., yn]`, sau đó tạo một mảng mới với dạng `[x1, y1, x2, y2, ..., xn, yn]`.
+
+### **Phân tích**
+
+1. Mảng `nums` có kích thước `2n`, trong đó phần đầu mảng chứa các phần tử `x1, x2, ..., xn` và phần cuối chứa các phần tử `y1, y2, ..., yn`.
+2. Mục tiêu của bài toán là trộn hai phần tử tương ứng từ hai phần của mảng và tạo thành mảng mới.
+3. Chúng ta sẽ lấy các phần tử từ vị trí `0` đến `n-1` cho phần đầu (x) và từ vị trí `n` đến `2n-1` cho phần cuối (y), sau đó trộn chúng lại.
+
+### **Cách tiếp cận**
+
+1. Duyệt qua các phần tử từ `0` đến `n-1` và kết hợp phần tử `xi` từ mảng đầu với phần tử `yi` từ mảng sau.
+2. Lặp lại cho tất cả các phần tử của mảng.
+
+### **Giải thuật**
+
+```python
+def shuffle(nums, n):
+    result = []
+    for i in range(n):
+        result.append(nums[i])    # Thêm phần tử từ mảng x
+        result.append(nums[i + n])  # Thêm phần tử từ mảng y
+    return result
+```
+
+### **Giải thích mã**
+
+- Mảng `nums` có `2n` phần tử.
+- `n` là số phần tử trong mỗi nửa của mảng (x và y).
+- Chúng ta sử dụng một vòng lặp để thêm các phần tử xen kẽ từ hai phần của mảng vào mảng kết quả `result`.
+
+### **Ví dụ**
+
+#### **Ví dụ 1**
+
+```python
+nums = [2, 5, 1, 3, 4, 7]
+n = 3
+print(shuffle(nums, n))  # Output: [2, 3, 5, 4, 1, 7]
+```
+
+**Giải thích:**
+
+- `x = [2, 5, 1]`
+- `y = [3, 4, 7]`
+- Kết quả là `[2, 3, 5, 4, 1, 7]`.
+
+#### **Ví dụ 2**
+
+```python
+nums = [1, 2, 3, 4, 4, 3, 2, 1]
+n = 4
+print(shuffle(nums, n))  # Output: [1, 4, 2, 3, 3, 2, 4, 1]
+```
+
+**Giải thích:**
+
+- `x = [1, 2, 3, 4]`
+- `y = [4, 3, 2, 1]`
+- Kết quả là `[1, 4, 2, 3, 3, 2, 4, 1]`.
+
+#### **Ví dụ 3**
+
+```python
+nums = [1, 1, 2, 2]
+n = 2
+print(shuffle(nums, n))  # Output: [1, 2, 1, 2]
+```
+
+**Giải thích:**
+
+- `x = [1, 1]`
+- `y = [2, 2]`
+- Kết quả là `[1, 2, 1, 2]`.
+
+### **Độ phức tạp**
+
+- **Thời gian:** `O(n)` vì ta duyệt qua toàn bộ mảng một lần.
+- **Không gian:** `O(n)` vì ta tạo một mảng kết quả với kích thước `2n`.

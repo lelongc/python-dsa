@@ -1,0 +1,131 @@
+
+*********
+
+
+Hãy cùng phân tích và hiểu đoạn văn về Dynamic Arrays (Mảng động) theo cách dễ hiểu nhất.
+
+
+---
+
+1. Dynamic Arrays là gì?
+
+Static Arrays (Mảng tĩnh) có kích thước cố định. Khi bạn tạo một mảng tĩnh, bạn phải chỉ định kích thước ban đầu, ví dụ: arr[3]. Nếu cần thêm dữ liệu, bạn không thể thay đổi kích thước của mảng đó.
+
+Dynamic Arrays (Mảng động) giải quyết vấn đề này bằng cách tự động thay đổi kích thước. Nó cho phép thêm hoặc bớt phần tử mà không cần xác định kích thước ban đầu.
+
+
+
+---
+
+2. Cách hoạt động của Dynamic Arrays
+
+Khi bạn thêm dữ liệu vào mảng động:
+
+1. Nếu mảng còn không gian trống, giá trị mới sẽ được thêm vào ngay lập tức.
+
+
+2. Nếu mảng hết chỗ, hệ thống sẽ:
+
+Tạo một mảng mới lớn hơn (thường gấp đôi kích thước cũ).
+
+Sao chép tất cả dữ liệu từ mảng cũ sang mảng mới.
+
+Thêm giá trị mới vào mảng lớn hơn.
+
+
+
+
+
+---
+
+3. Ưu điểm
+
+Bạn không cần lo về kích thước mảng ban đầu.
+
+Thêm phần tử ở cuối mảng (push): Thường mất thời gian O(1) (rất nhanh).
+
+Xóa phần tử ở cuối mảng (pop): Cũng mất thời gian O(1).
+
+
+4. Nhược điểm
+
+Thêm phần tử khi hết chỗ (resize): Cần sao chép toàn bộ dữ liệu sang mảng mới, mất thời gian O(n) (tốn thời gian hơn).
+
+Thêm hoặc xóa phần tử ở giữa: Cần dịch chuyển tất cả các phần tử còn lại, mất thời gian O(n).
+
+
+
+---
+
+5. Tại sao lại gấp đôi kích thước khi hết chỗ?
+
+Nếu chỉ tăng kích thước lên 1 mỗi khi hết chỗ, việc tạo và sao chép mảng sẽ xảy ra liên tục, làm chậm chương trình.
+
+Gấp đôi kích thước mỗi lần giúp giảm tần suất sao chép mảng, đảm bảo hiệu năng tốt hơn.
+
+Ví dụ:
+
+Lần đầu mảng có 1 ô.
+
+Khi cần thêm phần tử thứ 2, mảng mở rộng lên 2 ô.
+
+Thêm phần tử thứ 3, mảng mở rộng lên 4 ô.
+
+Cứ thế tăng lên 8, 16, 32 ô...
+
+
+
+
+
+---
+
+6. Tính toán hiệu năng (Time Complexity)
+
+Amortized Time Complexity (Độ phức tạp trung bình):
+
+Trong hầu hết các lần thêm dữ liệu, chi phí là O(1).
+
+Nhưng khi mảng hết chỗ, ta phải tạo mảng mới và sao chép dữ liệu, mất O(n).
+
+Trung bình, ta nói chi phí là O(1) vì việc mở rộng chỉ xảy ra không thường xuyên.
+
+
+
+
+---
+
+7. Big O và cách tính toán
+
+Big O không quan tâm đến hằng số (như 2 * n, n + 8) vì khi dữ liệu lớn, hằng số không còn ảnh hưởng nhiều.
+
+Điều quan trọng là tốc độ tăng trưởng:
+
+O(n): Tăng tuyến tính.
+
+O(n²): Tăng nhanh hơn rất nhiều, không tốt.
+
+
+
+
+---
+
+8. Kết luận
+
+Dynamic Arrays là cấu trúc dữ liệu hiệu quả khi cần:
+
+Lưu dữ liệu không biết trước kích thước.
+
+Thêm/xóa dữ liệu ở cuối mảng.
+
+
+Nhược điểm là:
+
+Chậm nếu thêm/xóa ở giữa.
+
+Khi resize, có thể tốn tài nguyên (nhưng hiếm khi xảy ra).
+
+
+
+
+
+

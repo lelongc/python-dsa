@@ -1,0 +1,105 @@
+Hiểu về Mảng Tĩnh (Static Array): Cấu Trúc Dữ Liệu Cơ Bản và Cách Sử Dụng
+
+Trong lập trình, mảng (array) là một cấu trúc dữ liệu cơ bản giúp lưu trữ nhiều giá trị có cùng kiểu dữ liệu. Hôm nay, chúng ta sẽ tìm hiểu về một loại mảng phổ biến và đơn giản - mảng tĩnh (static array). Đây là một mảng có kích thước cố định, tức là bạn không thể thay đổi số lượng phần tử trong mảng sau khi đã khai báo.
+
+1. Mảng Tĩnh Là Gì?
+
+Mảng tĩnh là một cấu trúc dữ liệu giúp lưu trữ các phần tử có cùng kiểu dữ liệu, chẳng hạn như tất cả các phần tử đều là số nguyên (int), số thực (float), hay chuỗi ký tự (char). Mảng tĩnh có một đặc điểm nổi bật là kích thước của mảng được xác định ngay từ lúc khai báo và không thể thay đổi sau đó.
+
+2. Cách Khai Báo Mảng Tĩnh
+
+Để khai báo một mảng tĩnh, bạn cần chỉ rõ kiểu dữ liệu của phần tử trong mảng và kích thước của mảng (tức là số phần tử mà mảng có thể chứa). Ví dụ:
+
+int arr[5]; // Mảng tĩnh chứa 5 phần tử kiểu int
+
+Trong ví dụ trên, chúng ta đã khai báo một mảng tĩnh arr có thể lưu trữ 5 giá trị kiểu số nguyên (int). Tuy nhiên, một khi mảng đã được khai báo với kích thước 5, bạn không thể thay đổi số lượng phần tử trong mảng này nữa.
+
+3. Cấu Trúc Bộ Nhớ của Mảng Tĩnh
+
+Mảng tĩnh lưu trữ các phần tử liên tiếp trong bộ nhớ. Điều này có nghĩa là tất cả các phần tử của mảng sẽ nằm cạnh nhau, giúp việc truy cập các phần tử nhanh hơn và dễ dàng hơn. Mỗi phần tử trong mảng sẽ được lưu tại một địa chỉ bộ nhớ riêng biệt.
+
+Ví dụ, giả sử bạn khai báo mảng sau:
+
+int arr[3] = {10, 20, 30}; // Mảng chứa 3 phần tử
+
+Mảng arr sẽ lưu trữ ba giá trị 10, 20, và 30 tại các địa chỉ bộ nhớ liên tiếp. Các phần tử này sẽ được lưu vào bộ nhớ như sau:
+
+4. Truy Cập và Thay Đổi Giá Trị trong Mảng
+
+Để truy cập phần tử trong mảng, bạn sử dụng chỉ mục (index). Chỉ mục của mảng bắt đầu từ 0, nghĩa là phần tử đầu tiên có chỉ mục là 0, phần tử thứ hai có chỉ mục là 1, v.v.
+
+int arr[3] = {10, 20, 30}; 
+cout << arr[0]; // In ra 10
+arr[1] = 50;     // Thay đổi giá trị phần tử thứ 2 thành 50
+cout << arr[1];  // In ra 50
+
+5. Ưu Điểm và Nhược Điểm của Mảng Tĩnh
+
+Ưu Điểm:
+
+Truy cập nhanh chóng: Vì các phần tử trong mảng tĩnh được lưu trữ liên tiếp, việc truy cập vào bất kỳ phần tử nào chỉ mất O(1) thời gian, nghĩa là không phụ thuộc vào kích thước mảng.
+
+Dễ dàng quản lý bộ nhớ: Mảng tĩnh giúp tiết kiệm bộ nhớ vì bạn chỉ cần cấp phát bộ nhớ cho đúng số phần tử mà bạn dự định lưu trữ ngay từ đầu.
+
+
+Nhược Điểm:
+
+Kích thước cố định: Khi khai báo một mảng tĩnh, bạn phải xác định trước số phần tử. Điều này có thể gây khó khăn nếu bạn không thể chắc chắn về số lượng phần tử cần lưu trữ khi lập trình.
+
+Không linh hoạt: Nếu bạn muốn thêm phần tử vào mảng hoặc xóa phần tử khỏi mảng, bạn sẽ không thể làm điều đó nếu mảng đã đầy. Bạn phải tạo lại mảng mới với kích thước lớn hơn nếu muốn thay đổi kích thước mảng.
+
+
+6. Độ Phức Tạp (Time & Space Complexity) của Mảng Tĩnh
+
+Độ phức tạp thời gian:
+
+Truy cập phần tử: O(1). Việc truy cập bất kỳ phần tử nào trong mảng tĩnh là rất nhanh chóng vì bộ nhớ được cấp phát liên tiếp.
+
+Thêm hoặc xóa phần tử: Mảng tĩnh không hỗ trợ thêm hay xóa phần tử sau khi đã khai báo, vì vậy không có độ phức tạp cụ thể cho các thao tác này.
+
+
+Độ phức tạp không gian:
+
+O(n), với n là số phần tử trong mảng. Mảng tĩnh cần cấp phát bộ nhớ cho tất cả các phần tử ngay từ đầu, và bộ nhớ này sẽ không thay đổi trong suốt quá trình chạy chương trình.
+
+
+
+7. Khi Nào Nên Dùng Mảng Tĩnh?
+
+Mảng tĩnh rất hữu ích khi bạn biết rõ số lượng phần tử bạn cần lưu trữ ngay từ đầu và không cần thay đổi kích thước mảng sau đó. Chúng rất hiệu quả khi bạn cần truy cập nhanh đến các phần tử của mảng và không cần tính năng linh hoạt như thêm hoặc xóa phần tử.
+
+8. Ví Dụ Minh Họa
+
+Hãy cùng xem ví dụ về mảng tĩnh trong thực tế. Giả sử bạn đang lập trình một ứng dụng quản lý điểm số của học sinh trong một lớp học. Bạn biết rằng lớp có 5 học sinh, và bạn muốn lưu điểm của họ trong một mảng:
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    // Khai báo mảng tĩnh chứa điểm của 5 học sinh
+    int scores[5] = {85, 90, 78, 88, 92};
+
+    // In ra điểm của học sinh thứ 3
+    cout << "Điểm của học sinh thứ 3 là: " << scores[2] << endl;  // In ra 78
+
+    // Thay đổi điểm học sinh thứ 4
+    scores[3] = 95;
+
+    // In ra điểm của học sinh thứ 4 sau khi thay đổi
+    cout << "Điểm của học sinh thứ 4 là: " << scores[3] << endl;  // In ra 95
+
+    return 0;
+}
+
+Trong ví dụ này, bạn đã khai báo một mảng scores chứa 5 phần tử (5 điểm số). Bạn có thể truy cập điểm của học sinh thứ 3 bằng scores[2] và thay đổi điểm của học sinh thứ 4 bằng cách gán giá trị mới cho scores[3].
+
+
+---
+
+Kết Luận
+
+Mảng tĩnh là một công cụ mạnh mẽ trong lập trình, đặc biệt là khi bạn làm việc với dữ liệu có kích thước cố định. Tuy nhiên, mảng tĩnh không linh hoạt khi bạn cần thay đổi số lượng phần tử trong quá trình thực thi chương trình. Nếu bạn biết trước số lượng phần tử cần lưu trữ và không cần thay đổi chúng, mảng tĩnh là sự lựa chọn tuyệt vời vì khả năng truy cập nhanh và sử dụng bộ nhớ hiệu quả.
+
+
+
+
