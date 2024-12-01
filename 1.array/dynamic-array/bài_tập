@@ -1,0 +1,214 @@
+
+
+# Python arrays are dynamic by default, but this is an example of resizing.
+class Array:
+    def __init__(self):
+        self.capacity = 2
+        self.length = 0
+        self.arr = [0] * 2 # Array of capacity = 2
+
+    # Insert n in the last position of the array
+    def pushback(self, n):
+        if self.length == self.capacity:
+            self.resize()
+            
+        # insert at next empty position
+        self.arr[self.length] = n
+        self.length += 1
+
+    def resize(self):
+        # Create new array of double capacity
+        self.capacity = 2 * self.capacity
+        newArr = [0] * self.capacity 
+        
+        # Copy elements to newArr
+        for i in range(self.length):
+            newArr[i] = self.arr[i]
+        self.arr = newArr
+        
+    # Remove the last element in the array
+    def popback(self):
+        if self.length > 0:
+            self.length -= 1
+    
+    # Get value at i-th index
+    def get(self, i):
+        if i < self.length:
+            return self.arr[i]
+        # Here we would throw an out of bounds exception
+
+    # Insert n at i-th index
+    def insert(self, i, n):
+        if i < self.length:
+            self.arr[i] = n
+            return
+        # Here we would throw an out of bounds exception       
+
+    def print(self):
+        for i in range(self.length):
+            print(self.arr[i])
+        print()
+
+
+
+
+
+
+
+
+
+
+
+
+### **Giải thích từng phần của đoạn code**
+
+Code này mô phỏng **một mảng động tùy chỉnh** giống như cách danh sách (`list`) hoạt động trong Python, nhưng được viết từ đầu để hiểu rõ cách mở rộng kích thước mảng khi cần. Đây là cách các **mảng động (dynamic arrays)** hoạt động trong các ngôn ngữ như C++ (`std::vector`).
+
+---
+
+### **1. Class `Array`**
+
+#### **Hàm khởi tạo (`__init__`)**
+```python
+def __init__(self):
+    self.capacity = 2
+    self.length = 0
+    self.arr = [0] * 2  # Tạo mảng kích thước cố định ban đầu
+```
+
+- **Mục đích**: Tạo một mảng với:
+  - `capacity`: Sức chứa ban đầu của mảng là 2.
+  - `length`: Số lượng phần tử thực sự hiện có trong mảng (bắt đầu từ 0).
+  - `arr`: Mảng động, khởi tạo bằng một danh sách `[0, 0]` (kích thước cố định là 2).
+
+---
+
+#### **Phương thức `pushback`**
+```python
+def pushback(self, n):
+    if self.length == self.capacity:
+        self.resize()
+        
+    self.arr[self.length] = n
+    self.length += 1
+```
+
+- **Mục đích**: Thêm phần tử `n` vào cuối mảng.
+- **Cách hoạt động**:
+  1. **Kiểm tra sức chứa**:
+     - Nếu mảng đã đầy (`length == capacity`), gọi hàm `resize` để mở rộng sức chứa.
+  2. **Thêm phần tử vào vị trí trống**:
+     - Gán `n` vào vị trí `self.arr[self.length]`.
+  3. **Tăng `length`**:
+     - Sau khi thêm phần tử, tăng `length` lên 1.
+
+---
+
+#### **Phương thức `resize`**
+```python
+def resize(self):
+    self.capacity = 2 * self.capacity
+    newArr = [0] * self.capacity 
+    
+    for i in range(self.length):
+        newArr[i] = self.arr[i]
+    self.arr = newArr
+```
+
+- **Mục đích**: Tăng kích thước của mảng khi nó đầy.
+- **Cách hoạt động**:
+  1. **Tăng gấp đôi sức chứa**: `self.capacity = 2 * self.capacity`.
+  2. **Tạo mảng mới**:
+     - Tạo mảng `newArr` có kích thước bằng `self.capacity`.
+  3. **Sao chép dữ liệu cũ**:
+     - Duyệt qua từng phần tử trong mảng cũ (`self.arr`) và sao chép vào `newArr`.
+  4. **Thay thế mảng cũ**:
+     - Gán `self.arr = newArr`.
+
+---
+
+#### **Phương thức `popback`**
+```python
+def popback(self):
+    if self.length > 0:
+        self.length -= 1
+```
+
+- **Mục đích**: Xóa phần tử cuối trong mảng.
+- **Cách hoạt động**:
+  - Nếu mảng không rỗng (`length > 0`), giảm `length` đi 1. 
+  - Phần tử cuối cùng sẽ không còn được tính là một phần tử thực tế (không cần xóa thủ công vì Python sẽ không truy cập nó qua `self.length`).
+
+---
+
+#### **Phương thức `get`**
+```python
+def get(self, i):
+    if i < self.length:
+        return self.arr[i]
+```
+
+- **Mục đích**: Trả về giá trị tại vị trí `i` trong mảng.
+- **Cách hoạt động**:
+  - Nếu `i` nằm trong phạm vi hợp lệ (`i < self.length`), trả về `self.arr[i]`.
+  - Nếu không, trong thực tế nên **ném ngoại lệ** (exception) để báo lỗi.
+
+---
+
+#### **Phương thức `insert`**
+```python
+def insert(self, i, n):
+    if i < self.length:
+        self.arr[i] = n
+```
+
+- **Mục đích**: Ghi đè giá trị `n` tại vị trí `i`.
+- **Cách hoạt động**:
+  - Nếu `i` nằm trong phạm vi hợp lệ (`i < self.length`), gán `self.arr[i] = n`.
+  - Nếu không, trong thực tế nên **ném ngoại lệ** (exception).
+
+---
+
+#### **Phương thức `print`**
+```python
+def print(self):
+    for i in range(self.length):
+        print(self.arr[i])
+    print()
+```
+
+- **Mục đích**: Hiển thị các phần tử trong mảng.
+- **Cách hoạt động**:
+  - Duyệt qua các phần tử thực tế (`i < self.length`) và in ra từng phần tử.
+
+---
+
+### **2. Ví dụ sử dụng**
+
+```python
+arr = Array()  # Tạo mảng mới
+
+arr.pushback(10)  # Thêm 10 vào mảng
+arr.pushback(20)  # Thêm 20 vào mảng
+arr.pushback(30)  # Mảng đầy, tự động mở rộng rồi thêm 30
+
+arr.print()  # Kết quả: 10, 20, 30
+
+arr.popback()  # Xóa phần tử cuối
+arr.print()  # Kết quả: 10, 20
+
+arr.insert(1, 99)  # Ghi đè vị trí 1 bằng 99
+arr.print()  # Kết quả: 10, 99
+```
+
+---
+
+### **Tóm tắt**
+- **`pushback`**: Thêm phần tử vào cuối mảng, tự động mở rộng nếu đầy.
+- **`resize`**: Tăng gấp đôi sức chứa khi mảng đầy.
+- **`popback`**: Xóa phần tử cuối.
+- **`get`**: Lấy giá trị tại vị trí `i`.
+- **`insert`**: Ghi đè giá trị tại vị trí `i`.
+- **`print`**: Hiển thị các phần tử trong mảng.
+
+Code này giúp hiểu rõ cách hoạt động của mảng động một cách cơ bản. Nếu còn chỗ nào chưa rõ, bạn cứ hỏi nhé! 😊
