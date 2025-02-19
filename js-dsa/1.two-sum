@@ -1,0 +1,101 @@
+Tôi sẽ giải thích bài **Two Sum** (Tổng hai số) từ đầu, bằng JavaScript, dành cho người chưa biết gì về lập trình. Hãy đọc từng bước nhé!
+
+---
+
+### **1. Bài toán Two Sum là gì?**
+- **Yêu cầu**: Cho một mảng số nguyên `nums` và một số nguyên `target`, tìm **hai số** trong mảng sao cho tổng của chúng bằng `target`.
+- **Ví dụ**:
+  - Input: `nums = [2, 7, 11, 15]`, `target = 9`
+  - Output: `[0, 1]` (vì `2 + 7 = 9`)
+
+---
+
+### **2. Cách tiếp cận đơn giản nhất (Brute Force)**
+**Ý tưởng**: Dùng 2 vòng lặp lồng nhau để kiểm tra mọi cặp số trong mảng.
+
+```javascript
+function twoSum(nums, target) {
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] + nums[j] === target) {
+        return [i, j]; // Trả về vị trí của 2 số
+      }
+    }
+  }
+  return []; // Không tìm thấy
+}
+
+// Ví dụ:
+console.log(twoSum([2, 7, 11, 15], 9)); // Output: [0, 1]
+```
+
+**Giải thích**:
+- Vòng lặp `i` chạy từ đầu mảng đến cuối.
+- Vòng lặp `j` chạy từ `i + 1` đến cuối để tránh trùng lặp.
+- Kiểm tra xem tổng `nums[i] + nums[j]` có bằng `target` không.
+
+**Nhược điểm**: Cách này chậm vì phải kiểm tra tất cả các cặp (độ phức tạp O(n²)).
+
+---
+
+### **3. Cách tối ưu bằng Hash Map (Đối tượng trong JS)**
+**Ý tưởng**: Dùng một đối tượng (object) để lưu trữ các số đã duyệt qua và vị trí của chúng, giảm độ phức tạp xuống O(n).
+
+```javascript
+function twoSum(nums, target) {
+  const numMap = {}; // Lưu trữ số và vị trí: { số: vị trí }
+
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i]; // Tính số cần tìm
+    if (complement in numMap) { // Nếu số cần tìm đã tồn tại trong object
+      return [numMap[complement], i]; // Trả về vị trí của số đó và vị trí hiện tại
+    }
+    numMap[nums[i]] = i; // Lưu số hiện tại vào object
+  }
+  return []; // Không tìm thấy
+}
+
+// Ví dụ:
+console.log(twoSum([2, 7, 11, 15], 9)); // Output: [0, 1]
+```
+
+**Giải thích chi tiết**:
+1. Tạo một object `numMap` để lưu trữ các số đã xem qua và vị trí của chúng.
+2. Duyệt từng phần tử trong mảng `nums`:
+   - Tính `complement = target - nums[i]` (số cần tìm để cộng với `nums[i]` ra `target`).
+   - Kiểm tra xem `complement` có trong `numMap` không:
+     - Nếu có, trả về vị trí của `complement` (đã lưu trong `numMap`) và vị trí hiện tại `i`.
+     - Nếu không, lưu `nums[i]` và vị trí `i` vào `numMap`.
+
+---
+
+### **4. Ví dụ minh họa bằng hình ảnh**
+Giả sử `nums = [2, 7, 11, 15]`, `target = 9`:
+
+| Bước | `i` | `nums[i]` | `complement = 9 - nums[i]` | Kiểm tra `complement` trong `numMap` | `numMap` sau bước |
+|------|-----|-----------|----------------------------|--------------------------------------|-------------------|
+| 1    | 0   | 2         | 7                          | Không tồn tại → Lưu `2: 0`          | `{2: 0}`          |
+| 2    | 1   | 7         | 2                          | Tồn tại (`2` ở vị trí 0) → Trả về `[0, 1]` | Dừng lại          |
+
+---
+
+### **5. Tại sao cách này tối ưu hơn?**
+- **Brute Force**: Kiểm tra tất cả cặp → O(n²).
+- **Hash Map**: Chỉ duyệt mảng một lần → O(n).
+
+---
+
+### **6. Bài tập thực hành**
+Hãy thử viết lại hàm `twoSum` và kiểm tra với các trường hợp sau:
+```javascript
+console.log(twoSum([3, 2, 4], 6)); // Output: [1, 2]
+console.log(twoSum([3, 3], 6));    // Output: [0, 1]
+```
+
+---
+
+### **7. Lưu ý quan trọng**
+- Đảm bảo không sử dụng cùng một phần tử hai lần (ví dụ: `nums = [3, 3]`, `target = 6` vẫn hợp lệ vì có hai phần tử 3 ở vị trí 0 và 1).
+- Luôn kiểm tra xem mảng có ít nhất 2 phần tử không.
+
+Nếu bạn cần giải thích thêm hoặc có thắc mắc, hãy hỏi nhé! 😊
