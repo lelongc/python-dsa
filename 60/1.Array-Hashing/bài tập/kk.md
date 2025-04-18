@@ -1,4 +1,5 @@
-12. bài 
+12 Bài 
+
 Remove Duplicates From Sorted Array
 
 Remove Element
