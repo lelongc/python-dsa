@@ -1,3 +1,65 @@
+ Chúng ta sẽ tìm hiểu về mảng tĩnh và mảng động, sau đó xem xét hướng giải quyết các bài tập bạn liệt kê, vì chúng liên quan trực tiếp đến việc thao tác trên mảng.
+1. Mảng Tĩnh (Static Array)
+ * Khái niệm: Mảng tĩnh là loại mảng mà kích thước của nó được quyết định và cố định ngay tại thời điểm bạn tạo ra nó. Bạn không thể dễ dàng thay đổi kích thước này sau khi mảng đã được tạo.
+ * Cách lưu trữ: Các phần tử của mảng tĩnh được lưu trữ ở các vị trí bộ nhớ liền kề nhau. Điều này giống như một dãy các ô chứa được xếp sát cạnh nhau trong bộ nhớ máy tính.
+ * Ưu điểm:
+   * Truy cập cực nhanh: Vì các phần tử nằm liền kề và bạn biết địa chỉ bắt đầu của mảng, bạn có thể tính toán ngay vị trí của bất kỳ phần tử nào dựa trên chỉ số (index) của nó. Việc truy cập, đọc hoặc ghi một phần tử tại một chỉ số bất kỳ có độ phức tạp thời gian là O(1) (gần như tức thời).
+   * Hiệu quả về bộ nhớ: Không có chi phí bộ nhớ phát sinh thêm cho việc quản lý kích thước động.
+ * Nhược điểm:
+   * Kích thước cố định: Đây là hạn chế lớn nhất. Nếu bạn cần lưu thêm phần tử mà mảng đã đầy, bạn không thể mở rộng nó ra được. Bạn sẽ phải tạo một mảng mới có kích thước lớn hơn và sao chép toàn bộ dữ liệu từ mảng cũ sang mảng mới (rất tốn kém về thời gian - O(n)).
+   * Thêm/Xóa ở giữa: Việc thêm hoặc xóa một phần tử ở giữa mảng rất tốn kém vì bạn phải di chuyển tất cả các phần tử phía sau nó để lấp đầy hoặc tạo chỗ trống (độ phức tạp thời gian O(n)).
+ * Ví dụ: Trong C++, int arr[10]; tạo một mảng tĩnh chứa 10 số nguyên.
+2. Mảng Động (Dynamic Array)
+ * Khái niệm: Mảng động là cấu trúc dữ liệu cho phép bạn lưu trữ một tập hợp các phần tử và kích thước của nó có thể thay đổi (tăng hoặc giảm) trong quá trình chương trình chạy.
+ * Cách hoạt động: Mảng động không phải là một kiểu mảng hoàn toàn khác biệt. Thực chất, nó thường được xây dựng dựa trên mảng tĩnh. Khi bạn thêm phần tử vào mảng động:
+   * Nếu mảng tĩnh bên dưới còn chỗ trống, phần tử mới chỉ việc được thêm vào vị trí trống tiếp theo.
+   * Nếu mảng tĩnh bên dưới đã đầy, mảng động sẽ thực hiện các bước sau một cách tự động (bạn không cần làm thủ công):
+     * Tạo một mảng tĩnh mới có kích thước lớn hơn (thường gấp đôi kích thước cũ để tối ưu).
+     * Sao chép tất cả các phần tử từ mảng tĩnh cũ sang mảng tĩnh mới.
+     * Thêm phần tử mới vào mảng tĩnh mới.
+     * Giải phóng bộ nhớ của mảng tĩnh cũ.
+ * Ưu điểm:
+   * Kích thước linh hoạt: Dễ dàng thêm bớt phần tử mà không cần lo lắng về kích thước ban đầu.
+   * Truy cập nhanh: Truy cập các phần tử theo chỉ số vẫn nhanh (O(1) trung bình), giống như mảng tĩnh, vì nó vẫn dựa trên mảng tĩnh.
+ * Nhược điểm:
+   * Thêm/Xóa (có thể tốn kém): Mặc dù việc thêm vào cuối mảng động thường rất nhanh (O(1) trung bình - amortized time complexity), nhưng thỉnh thoảng sẽ gặp trường hợp phải sao chép lại toàn bộ mảng khi đầy (lúc đó sẽ tốn O(n)). Thêm hoặc xóa ở giữa vẫn tốn O(n) vì phải di chuyển các phần tử sau đó.
+   * Tốn kém hơn về bộ nhớ: Có thể tốn bộ nhớ hơn mảng tĩnh vì nó thường giữ một phần không gian trống để sẵn sàng cho việc thêm phần tử tiếp theo mà không cần sao chép ngay lập tức.
+ * Ví dụ: std::vector trong C++, ArrayList trong Java, list trong Python đều là các dạng mảng động.
+Liên hệ với các bài tập: Các bài tập bạn sắp làm đều yêu cầu thao tác trên mảng. Mặc dù bài toán có thể mô tả là làm việc trên một "mảng" (có thể hiểu là mảng tĩnh ban đầu), nhưng cách giải quyết hiệu quả thường liên quan đến việc quản lý các phần tử trong một không gian (giống như mảng), thay đổi thứ tự hoặc loại bỏ các phần tử không mong muốn, và đôi khi tạo ra một mảng mới dựa trên mảng cũ.
+Bây giờ, hãy xem hướng giải quyết cho từng bài:
+Hướng làm bài tập
+ * Remove Duplicates From Sorted Array (Easy)
+   * Vấn đề: Xóa các phần tử trùng lặp trong một mảng ĐÃ SẮP XẾP tại chỗ (không tạo mảng mới hoàn toàn) và trả về độ dài mới của mảng sau khi xóa. Các phần tử sau độ dài mới không quan trọng.
+   * Hướng làm: Vì mảng đã sắp xếp, các phần tử trùng lặp sẽ nằm cạnh nhau. Ta dùng kỹ thuật hai con trỏ (Two Pointers):
+     * Một con trỏ write_ptr (hoặc slow pointer) chỉ vị trí tiếp theo trong mảng mà một phần tử DUY NHẤT cần được ghi vào. Bắt đầu write_ptr tại chỉ số 1 (phần tử đầu tiên nums[0] luôn là duy nhất trong kết quả nếu mảng không rỗng).
+     * Một con trỏ read_ptr (hoặc fast pointer) duyệt qua TẤT CẢ các phần tử của mảng, bắt đầu từ chỉ số 1.
+     * Duyệt read_ptr từ 1 đến hết mảng:
+       * Nếu phần tử tại nums[read_ptr] khác với phần tử ngay trước vị trí ghi cuối cùng (nums[write_ptr - 1]) -> đây là một phần tử duy nhất mới. Ghi nó vào vị trí write_ptr: nums[write_ptr] = nums[read_ptr], sau đó tăng write_ptr lên 1.
+       * Nếu phần tử tại nums[read_ptr] giống với nums[write_ptr - 1] -> đây là phần tử trùng lặp. Bỏ qua nó (chỉ cần tăng read_ptr).
+     * Sau khi duyệt hết mảng, giá trị cuối cùng của write_ptr chính là độ dài mới của mảng sau khi xóa trùng lặp.
+   * Ưu điểm: Giải quyết bài toán tại chỗ (O(1) không gian bộ nhớ bổ sung) với thời gian O(n).
+ * Remove Element (Easy)
+   * Vấn đề: Xóa TẤT CẢ các lần xuất hiện của một giá trị cụ thể val trong mảng tại chỗ và trả về độ dài mới. Thứ tự của các phần tử còn lại có thể thay đổi. Các phần tử sau độ dài mới không quan trọng.
+   * Hướng làm: Cũng dùng kỹ thuật hai con trỏ:
+     * write_ptr (hoặc slow pointer) bắt đầu từ 0, chỉ vị trí tiếp theo để đặt một phần tử KHÔNG phải là val.
+     * read_ptr (hoặc fast pointer) bắt đầu từ 0, duyệt qua TẤT CẢ các phần tử.
+     * Duyệt read_ptr từ 0 đến hết mảng:
+       * Nếu phần tử tại nums[read_ptr] khác với val -> đây là phần tử cần giữ lại. Ghi nó vào vị trí write_ptr: nums[write_ptr] = nums[read_ptr], sau đó tăng write_ptr lên 1.
+       * Nếu phần tử tại nums[read_ptr] bằng val -> đây là phần tử cần xóa. Bỏ qua nó (chỉ cần tăng read_ptr).
+     * Sau khi duyệt hết mảng, giá trị cuối cùng của write_ptr chính là độ dài mới của mảng sau khi xóa các phần tử bằng val.
+   * Cách khác (khi số phần tử cần xóa ít): Dùng hai con trỏ left và right ở hai đầu mảng. Nếu nums[left] là giá trị cần xóa, đổi chỗ nó với nums[right] và giảm right. Nếu không, tăng left.
+ * Concatenation of Array (Easy)
+   * Vấn đề: Cho mảng nums có độ dài n. Tạo một mảng MỚI ans có độ dài 2n sao cho ans là sự ghép của nums với chính nó (nghĩa là ans[i] == nums[i] và ans[i + n] == nums[i] với 0 <= i < n).
+   * Hướng làm:
+     * Tạo một mảng mới ans có kích thước 2 * n.
+     * Duyệt một vòng lặp từ i = 0 đến n - 1.
+     * Trong mỗi vòng lặp, thực hiện hai phép gán:
+       * ans[i] = nums[i]
+       * ans[i + n] = nums[i]
+     * Sau khi vòng lặp kết thúc, mảng ans chính là kết quả cần tìm.
+   * Bài này đơn giản là tạo mảng mới và sao chép dữ liệu theo quy tắc, không cần kỹ thuật phức tạp như hai con trỏ hay hashing.
+
+---
 
 1. Dữ liệu là gì và máy tính lưu trữ nó như thế nào?
  * Dữ liệu: Là thông tin mà máy tính cần xử lý. Đó có thể là con số (như 5, 100), văn bản (như "Xin chào", "Apple"), sự thật (đúng/sai),...
